@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="iso-8859-7">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PS Calculators</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+
+  <h1 class="d-flex justify-content-center m-4">Product School Instructor Compensation Calculator</h1>
+
+    <form class="d-flex flex-column align-items-center p-2">
+      <p>Is the instructor for B2B or B2C?</p>
+      <select id="instructor_type" class="col-3">
+        <option value="b2c">B2C</option>
+        <option value="b2b">B2B</option>
+      </select><br>
+
+      <p class="d-flex justify-content-center">Which location is the instructor going to teach in?</p>
+      <select id="location" class="col-3 m-3 justify-self-center">
+        <option value="bm">San Francisco</option>
+        <option value="bm">New York</option>
+        <option value="bm">Santa Clara</option>
+        <option value="bm">Santa Monica</option>
+        <option value="bm">Downtown LA</option>
+        <option value="bm">Orange County</option>
+        <option value="bm">Seattle</option>
+        <option value="sm">Chicago</option>
+        <option value="sm">Boston</option>
+        <option value="sm">Austin</option>
+        <option value="sm">Denver</option>
+        <option value="sm">Boulder</option>
+        <option value="sm">Toronto</option>
+        <option value="bm">London</option>
+      </select><br>
+
+        <p class="d-flex justify-content-center">Which course is the instructor teaching?</p>
+        <select id="course_taught" class="col-3 m-3 justify-self-center">
+          <option value="pm">Product Management</option>
+          <option value="coding/data">Coding For Managers</option>
+          <option value="data/data">Data Analytics For Managers</option>
+          <option value="blockchain">Blockchain</option>
+        </select><br>
+
+        <p class="d-flex justify-content-center">How many times the instructor taught before?</p>
+        <select id="tier" class="col-3 m-3 justify-self-center">
+          <option value=-1></option>
+          <option value=0>never taught before</option>
+          <option value=1>Taught 1 time</option>
+          <option value=2>Taught 2 times or more</option>
+        </select><br>
+
+      <div id="b2b_block" class="m-3">
+        <p>How many hours the instructor is going to teach?</p>
+        <input id="nb_hours_b2b" type="number" class="col-11 m-3 justify-self-center">
+      </div>
+
+      <input class="btn btn-primary col-3 m-3" id="calculate_comp" type="button" value="Calculate Compensation">
+      <p class="col-3 m-3 btn btn-secondary" id="base_comp">Base Comp Amount: </p>
+      <p class="col-3 m-3 btn btn-secondary" id="bonus_comp">Bonus Comp Amount: </p>
+
+    </form>
+
+    <script>
+
+      var bonus_comp = 0;
+      var base_comp = 0;
+      var total_comp = 0;
+      var nb_hours_b2b = 0;
+      var total_hourly_rate = 0;
+
+      $("#b2b_block").hide();
+
+      $("#instructor_type").change(function(){
+
+        if ($("#instructor_type").val()=="b2b") {
+
+          $("#b2b_block").show()
+
+        } else if ($("#instructor_type").val()=="b2c") {
+
+          $("#b2b_block").hide()
+        };
+      });
+
+        $("#tier").change(function(){
+
+          if($("#location").val()=="bm"){
+
+            if ($("#course_taught").val()=="pm" && $("#tier").val()==0) {
+              total_comp = 4000;
+              base_comp = 3000;
+              bonus_comp = 1000;
+            } else if ($("#course_taught").val()=="pm" && $("#tier").val()==1) {
+              total_comp = 4500;
+              base_comp = 3000;
+              bonus_comp = 1500;
+            } else if ($("#course_taught").val()=="pm" && $("#tier").val()==2) {
+              total_comp = 5000;
+              base_comp = 3000;
+              bonus_comp = 2000;
+            } else if ($("#course_taught").val()=="coding/data" && $("#tier").val()==0) {
+              total_comp = 3000;
+              base_comp = 2000;
+              bonus_comp = 1000;
+            } else if ($("#course_taught").val()=="coding/data" && $("#tier").val()==1) {
+              total_comp = 3500;
+              base_comp = 2000;
+              bonus_comp = 1500;
+            } else if ($("#course_taught").val()=="coding/data" && $("#tier").val()==2) {
+              total_comp = 4000;
+              base_comp = 2000;
+              bonus_comp = 2000;
+            } else if ($("#course_taught").val()=="blockchain" && $("#tier").val()==0) {
+              total_comp = 1500;
+              base_comp = 1000;
+              bonus_comp = 500;
+            } else if ($("#course_taught").val()=="blockchain" && $("#tier").val()==1) {
+              total_comp = 1750;
+              base_comp = 1000;
+              bonus_comp = 750;
+            } else if ($("#course_taught").val()=="blockchain" && $("#tier").val()==2) {
+              total_comp = 2000;
+              base_comp = 1000;
+              bonus_comp = 1000;
+
+            }
+            
+          } else {
+              if ($("#course_taught").val()=="pm" && $("#tier").val()==0) {
+                total_comp = 3000;
+                base_comp = 2000;
+                bonus_comp = 1000;
+              } else if ($("#course_taught").val()=="pm" && $("#tier").val()==1) {
+                total_comp = 3500;
+                base_comp = 2000;
+                bonus_comp = 1500;
+              } else if ($("#course_taught").val()=="pm" && $("#tier").val()==2) {
+                total_comp = 4000;
+                base_comp = 2000;
+                bonus_comp = 2000;
+              };
+            };
+        });
+
+        $("#nb_hours_b2b").change(function(){
+          nb_hours_b2b = $("#nb_hours_b2b").val()
+
+          if($("#location").val()=="bm" && $("#course_taught").val()=="pm"){
+
+            if ($("#tier").val()==0){
+              total_hourly_rate = 100;
+            } else if ($("#tier").val()==1) {
+              total_hourly_rate = 112.5;
+            } else if ($("#tier").val()==2) {
+              total_hourly_rate = 125;
+            };
+
+          } else {
+            if($("#tier").val()==0){
+              total_hourly_rate = 75;
+            } else if ($("#tier").val()==1) {
+              total_hourly_rate = 87.5;
+            } else if ($("#tier").val()==2) {
+              total_hourly_rate = 100;
+            };
+          };
+          base_comp = nb_hours_b2b * total_hourly_rate * 70/100
+          bonus_comp = nb_hours_b2b * total_hourly_rate * 30/100
+        });
+
+
+        $("#calculate_comp").click(function(){
+          $("#base_comp").replaceWith('<p class="col-3 m-3 btn btn-success" id="base_comp">Base Comp Amount:' + base_comp + '</p>');
+          $("#bonus_comp").replaceWith('<p class="col-3 m-3 btn btn-success" id="bonus_comp">Bonus Comp Amount:' + bonus_comp + '</p>');
+        });
+    </script>
+
+
+
+  </body>
+</html>
